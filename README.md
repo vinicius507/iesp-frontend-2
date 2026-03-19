@@ -4,7 +4,7 @@ Este repositório contém minhas submissões para as listas de exercício para
 disciplina de Tecnologia para Frontend com Lógica Imperativa da instituição
 UNIESP.
 
-## Requisitos
+**Requisitos:**
 
 - Node.js v22
 
