@@ -115,7 +115,7 @@ function gerarEstatisticas(pessoas) {
 }
 
 function main() {
-	const quantidade = 2;
+	const quantidade = 15;
 	const ids = Array.from({ length: quantidade }, (_, i) => i + 1);
 	const pessoas = [];
 
