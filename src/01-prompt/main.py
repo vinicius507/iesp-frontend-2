@@ -7,7 +7,7 @@ from enum import StrEnum, auto
 from typing import Self
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, order=True)
 class Altura:
     valor: float
 
@@ -67,11 +67,11 @@ def gerar_estatisticas(pessoas: list[Pessoa]) -> Estatisticas:
     if not pessoas:
         raise ValueError("A lista de pessoas não pode estar vazia.")
 
-    alturas = [pessoa.altura.valor for pessoa in pessoas]
+    alturas = [pessoa.altura for pessoa in pessoas]
     generos = [pessoa.genero for pessoa in pessoas]
 
-    maior_altura = Altura(max(alturas))
-    menor_altura = Altura(min(alturas))
+    maior_altura = max(alturas)
+    menor_altura = min(alturas)
 
     homens = [pessoa for pessoa in pessoas if pessoa.genero == Genero.MASCULINO]
     media_altura_homens = (
@@ -93,7 +93,7 @@ def gerar_estatisticas(pessoas: list[Pessoa]) -> Estatisticas:
 def main():
     pessoas: list[Pessoa] = []
 
-    for i in range(15):
+    for i in range(2):
         print(f"Pessoa {i + 1}:")
         pessoa = solicitar_dados_pessoa()
         pessoas.append(pessoa)
