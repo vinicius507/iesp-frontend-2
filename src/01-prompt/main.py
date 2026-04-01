@@ -93,7 +93,7 @@ def gerar_estatisticas(pessoas: list[Pessoa]) -> Estatisticas:
 def main():
     pessoas: list[Pessoa] = []
 
-    for i in range(2):
+    for i in range(15):
         print(f"Pessoa {i + 1}:")
         pessoa = solicitar_dados_pessoa()
         pessoas.append(pessoa)
