@@ -55,7 +55,7 @@
       </form>
 
       <div class="buttons">
-        <button class="button">Enviar</button>
+        <button id="enviarBtn" class="button">Enviar</button>
       </div>
     </main>
     </div>
@@ -63,5 +63,22 @@
     <footer>
       <p>© 2023 por Luxo aluguel de iates</p>
     </footer>
+
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+      document.getElementById("enviarBtn").addEventListener("click", () => {
+        const mensagem = {
+          nome: document.getElementById("nome").value,
+          email: document.getElementById("email").value,
+          mensagem: document.getElementById("msg").value,
+        };
+        inserirMensagem(mensagem);
+        alert("Mensagem enviada!");
+        document.getElementById("nome").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("msg").value = "";
+      });
+    </script>
   </body>
 </html>
