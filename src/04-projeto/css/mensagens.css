@@ -1,0 +1,18 @@
+#tabelaMensagens {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+
+#tabelaMensagens th,
+#tabelaMensagens td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+#tabelaMensagens thead {
+  background-color: var(--darkblue);
+  color: white;
+}

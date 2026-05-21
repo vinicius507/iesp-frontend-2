@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxo - Mensagens</title>
+    <link rel="shortcut icon" href="images/barco2.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/mensagens.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <header>
+        <div id="title">
+          <img src="images/barco1.png" alt="ícone de barco" />
+          <div class="headtitle">
+            <h1>Luxo</h1>
+            <h2>Aluguel de iates</h2>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="pagtitle">
+          <div class="bgtitle"></div>
+          <h2>Mensagens</h2>
+        </div>
+
+        <table id="tabelaMensagens">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Mensagem</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </main>
+    </div>
+
+    <footer>
+      <p>© 2023 por Luxo aluguel de iates</p>
+    </footer>
+
+    <script src="js/jquery-3.6.4.min.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+      if (sessionStorage.getItem("autorizado") !== "true") {
+        window.location.href = "admin.html";
+      }
+
+      const mensagens = obterMensagens();
+      const tbody = document.querySelector("#tabelaMensagens tbody");
+      mensagens.forEach((msg) => {
+        const tr = document.createElement("tr");
+        ["nome", "email", "mensagem"].forEach((campo) => {
+          const td = document.createElement("td");
+          td.textContent = msg[campo];
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    </script>
+  </body>
+</html>
