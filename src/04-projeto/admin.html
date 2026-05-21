@@ -53,19 +53,49 @@
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/api.js"></script>
     <script>
-      document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const obj = {
-          email: document.getElementById("email").value,
-          senha: document.getElementById("senha").value,
-        };
-        if (validarUsuario(obj)) {
-          sessionStorage.setItem("autorizado", "true");
-          window.location.href = "mensagens.html";
-        } else {
-          alert("E-mail e Senha inválidos");
+      function inicializarLogin() {
+        const emailInput = document.getElementById("email");
+        const senhaInput = document.getElementById("senha");
+        const loginForm = document.getElementById("loginForm");
+
+        if (!emailInput || !senhaInput || !loginForm) {
+          console.error("Formulário de login com elementos ausentes");
+          return;
         }
-      });
+
+        loginForm.addEventListener("submit", fazerLogin);
+      }
+
+      function fazerLogin(e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value;
+
+        if (!email || !senha) {
+          alert("Preencha e-mail e senha");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+          alert("E-mail inválido");
+          return;
+        }
+
+        const autorizado = validarUsuario({ email, senha }) === true;
+
+        if (!autorizado) {
+          alert("E-mail e Senha inválidos");
+          return;
+        }
+
+        sessionStorage.setItem("autorizado", "true");
+        window.location.href = "mensagens.html";
+      }
+
+      inicializarLogin();
     </script>
   </body>
 </html>

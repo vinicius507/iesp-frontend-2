@@ -67,18 +67,49 @@
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/api.js"></script>
     <script>
-      document.getElementById("enviarBtn").addEventListener("click", () => {
-        const mensagem = {
-          nome: document.getElementById("nome").value,
-          email: document.getElementById("email").value,
-          mensagem: document.getElementById("msg").value,
-        };
-        inserirMensagem(mensagem);
+      function inicializarContato() {
+        const enviarBtn = document.getElementById("enviarBtn");
+        if (!enviarBtn) {
+          console.error("Botão de envio não encontrado");
+          return;
+        }
+        enviarBtn.addEventListener("click", enviarMensagem);
+      }
+
+      function enviarMensagem() {
+        const nomeInput = document.getElementById("nome");
+        const emailInput = document.getElementById("email");
+        const msgInput = document.getElementById("msg");
+
+        if (!nomeInput || !emailInput || !msgInput) {
+          console.error("Campos do formulário ausentes");
+          return;
+        }
+
+        const nome = nomeInput.value.trim();
+        const email = emailInput.value.trim();
+        const mensagemTexto = msgInput.value.trim();
+
+        if (!nome || !email || !mensagemTexto) {
+          alert("Preencha todos os campos");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+          alert("E-mail inválido");
+          return;
+        }
+
+        inserirMensagem({ nome, email, mensagem: mensagemTexto });
         alert("Mensagem enviada!");
-        document.getElementById("nome").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("msg").value = "";
-      });
+        nomeInput.value = "";
+        emailInput.value = "";
+        msgInput.value = "";
+      }
+
+      inicializarContato();
     </script>
   </body>
 </html>

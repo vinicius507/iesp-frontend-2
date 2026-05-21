@@ -49,21 +49,63 @@
     <script src="js/jquery-3.6.4.min.js"></script>
     <script src="js/api.js"></script>
     <script>
-      if (sessionStorage.getItem("autorizado") !== "true") {
-        window.location.href = "admin.html";
+      function exigirAutorizacao() {
+        if (sessionStorage.getItem("autorizado") !== "true") {
+          window.location.href = "admin.html";
+          return false;
+        }
+        return true;
       }
 
-      const mensagens = obterMensagens();
-      const tbody = document.querySelector("#tabelaMensagens tbody");
-      mensagens.forEach((msg) => {
-        const tr = document.createElement("tr");
-        ["nome", "email", "mensagem"].forEach((campo) => {
-          const td = document.createElement("td");
-          td.textContent = msg[campo];
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
+      function renderizarLinhaVazia(tbody) {
+        const linha = document.createElement("tr");
+        const celula = document.createElement("td");
+
+        celula.colSpan = 3;
+        celula.textContent = "Nenhuma mensagem recebida.";
+        celula.style.textAlign = "center";
+        linha.appendChild(celula);
+        tbody.appendChild(linha);
+      }
+
+      function renderizarMensagem(tbody, msg) {
+        const linha = document.createElement("tr");
+        const campos = ["nome", "email", "mensagem"];
+
+        for (const campo of campos) {
+          const celula = document.createElement("td");
+          celula.textContent = msg?.[campo] ?? "";
+          linha.appendChild(celula);
+        }
+        tbody.appendChild(linha);
+      }
+
+      function inicializarMensagens() {
+        if (!exigirAutorizacao()) {
+          return;
+        }
+
+        const tbody = document.querySelector("#tabelaMensagens tbody");
+
+        if (!tbody) {
+          console.error("Tabela de mensagens não encontrada");
+          return;
+        }
+
+        const resultado = obterMensagens();
+        const mensagens = Array.isArray(resultado) ? resultado : [];
+
+        if (mensagens.length === 0) {
+          renderizarLinhaVazia(tbody);
+          return;
+        }
+
+        for (const msg of mensagens) {
+          renderizarMensagem(tbody, msg);
+        }
+      }
+
+      inicializarMensagens();
     </script>
   </body>
 </html>
