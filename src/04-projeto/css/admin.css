@@ -1,0 +1,40 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+header {
+  position: static;
+  width: auto;
+}
+
+main {
+  flex: 1;
+  padding-top: 0;
+}
+
+#email,
+#senha {
+  width: 100%;
+  padding: 5px;
+  outline: 0;
+  border: 0;
+  border-bottom: 1px solid;
+  font-family: var(--pagefont);
+}
+
+#loginForm label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+#loginForm .buttons {
+  margin-top: 20px;
+}
